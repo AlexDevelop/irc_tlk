@@ -1,0 +1,45 @@
+{% if check_pages %}
+    {% for key, characters_in_page in check_pages.items %}
+        <h1>
+        {% if characters_in_page == -1 %}
+            Wrong credentials, not logged in
+        {% else %}
+            Found {{ key }} - {{ characters_in_page }}
+        {% endif %}
+        </h1>
+    {% endfor %}
+{% endif %}
+
+<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+<style type="text/css">
+    body {
+        font-family: roboto;
+    }
+    .header {
+        font-size: 20px;
+    }
+    .rows {
+        margin: 0 auto;
+    }
+    .rows .key, .rows .value {
+        width: 25%;
+        display: inline-block;
+    }
+
+    .rows .value {
+        width: 75%;
+    }
+</style>
+
+<h1>{{ website.status_code }}</h1>
+<div class="header">
+    <div class="rows">
+        <div class="key">Key</div><div class="value">Value</div>
+    </div>
+</div>
+
+{% for key, value in website.headers.items %}
+    <div class="rows">
+        <div class="key">{{ key }}</div><div class="value">{{ value }}</div>
+    </div>
+{% endfor %}

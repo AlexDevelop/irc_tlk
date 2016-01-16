@@ -1,0 +1,148 @@
+<html><head>
+<META HTTP-EQUIV="imagetoolbar" CONTENT="no"><META NAME="DESCRIPTION" CONTENT="Play online multiplayer strategy game Last Knights (lastknights)."><META NAME="ABSTRACT" CONTENT="online multiplayer, TLK, RPG, Wargame, world game, strategy game, Role playing game, MMORTS, wargames, massive multiplayer online game, mmo rpg, massive multiplayer game, rts, text based rpg, real time strategy, strategy rpg, browser rpg, massive multiplayer online game, real time strategy game, rts game, online army, web based rpg, web based rts, medieval, medieval war game, medieval Europe, medieval RTS, huge battles, medieval game."><META NAME="KEYWORDS" CONTENT="online multiplayer, TLK, RPG, Wargame, world game, strategy game, Role playing game, MMORTS, wargames, massive multiplayer online game, mmo rpg, massive multiplayer game, rts, text based rpg, real time strategy, strategy rpg, browser rpg, massive multiplayer online game, real time strategy game, rts game, online army, web based rpg, web based rts, medieval, medieval war game, medieval Europe, medieval RTS, huge battles, medieval game."><meta property="og:site_name" content="The Last Knights"><meta property="og:title" content="The Last Knights - Medieval online real time strategy game (MMORTS)"><meta property="og:type" content="game"><meta property="og:image" content="http://www.lastknights.com/images/banners/medrect-static.jpg"><meta property="og:url" content="http://www.lastknights.com/"><meta property="og:description" content="The Last Knights is a Massively Multiplayer Online Real Time Strategy Game (MMORTS) set in Medieval Europe/Asia."><meta property="fb:admins" content="100000200145354"><title>The Last Knights - Medieval online real time social strategy game (MMORTS)</title>
+<link rel="stylesheet" type="text/css" href="css/style.css?v6.0">
+<script type="text/javascript" src="csjs/jquery.js"></script>
+<script type="text/javascript" src="csjs/global.js?v=13"></script>
+<script type="text/javascript" src="csjs/shortcut.js?v=3.1"></script>
+<div id="overDiv" style="position:absolute; visibility:hidden; z-index:1000;"></div>
+<script type="text/javascript" src="csjs/overlib_minibs.js"><!-- overLIB (c) Erik Bosrup --></script><style type="text/css">span#player92938 {font-weight: bold;}</style>
+<link rel="icon" type="image/png" href="/favicon.ico">
+<!-- #TOPSCRIPT# -->
+<!-- This is all google ad code stuff -->
+<script type="text/javascript" src="//www.googleadservices.com/pagead/conversion_async.js" charset="utf-8"></script>
+<script type='text/javascript'>
+var googletag = googletag || {};
+googletag.cmd = googletag.cmd || [];
+  (function() {
+var gads = document.createElement('script');
+gads.async = true;
+gads.type = 'text/javascript';
+var useSSL = 'https:' == document.location.protocol;
+gads.src = (useSSL ? 'https:' : 'http:') +
+'//www.googletagservices.com/tag/js/gpt.js';
+var node = document.getElementsByTagName('script')[0];
+node.parentNode.insertBefore(gads, node);
+})();
+</script>
+
+<script type='text/javascript'>
+  googletag.cmd.push(function() {
+    googletag.defineSlot('/151428060/Last-Knights-Header-Banner', [468, 60], 'div-gpt-ad-1449333081025-0').addService(googletag.pubads());
+    googletag.defineSlot('/151428060/Last-Knights-Content-Leaderboard', [728, 90], 'div-gpt-ad-1449415237738-0').addService(googletag.pubads());
+    googletag.defineSlot('/151428060/Last-Knights-Content-Med-Rect', [300, 250], 'div-gpt-ad-1447259409305-0').addService(googletag.pubads());
+    googletag.defineSlot('/151428060/Last-Knights-Side-Skyscraper', [120, 600], 'div-gpt-ad-1447259488648-0').addService(googletag.pubads());
+    googletag.defineSlot('/151428060/Last-Knights-Content-Small-Square', [200, 200], 'div-gpt-ad-1447259561623-0').addService(googletag.pubads());
+    googletag.defineSlot('/151428060/Last-Knights-Side-Wide-Sky', [160, 600], 'div-gpt-ad-1447259630792-0').addService(googletag.pubads());
+
+
+    googletag.pubads().enableSingleRequest();
+    googletag.pubads().enableSyncRendering();
+    googletag.enableServices();
+  });
+</script>
+<!-- End of ad code -->
+<!-- #HEAD# -->
+<script type="text/javascript">$SA = {s:249258, asynch: 1, useBlacklistUrl: 1};(function() {   var sa = document.createElement("script");   sa.type = "text/javascript";   sa.async = true;   sa.src = ("https:" == document.location.protocol ? "https://" + $SA.s + ".sa" : "http://" + $SA.s + ".a") + ".siteapps.com/" + $SA.s + ".js";   var t = document.getElementsByTagName("script")[0];   t.parentNode.insertBefore(sa, t);})();</script></head>
+<body class="asia">
+<form name="shortcut" action="index.php" method="POST" style="display:inline">
+<input type="hidden" name="border" value="0">
+<input type="hidden" name="healer" value="0">
+<input type="hidden" name="armory" value="0">
+<input type="hidden" name="tournament" value="0">
+<input type="hidden" name="headquarters" value="0">
+<input type="hidden" name="castle" value="0"></form>
+
+<table class = "width_1145" id="page">
+<tr><td valign="top" colspan = "4" class="header">
+<a href="index.php" title="The Last Knights - Free Online Social Strategy Game"><img src="images/logo_tlk.png" style="float: left;"></a>
+<div style="margin-left:85px;margin-top:5px;float:right;"><!-- Last-Knights-Header-Banner -->
+</div></td></tr>
+<tr>
+<td class="menu" valign="top" width="150">
+
+<table width="100%">
+<tr><td><!-- #PLAYER_START# --><a href="index.php?page=settings&tab=timezone" title="set your timezone" class="clock" ><!-- #PLAYER_END# --><div id="game-clock">
+<div id="my-time"><span class="hours"></span>:<span class="minutes"></span><sup style="font-size:13"> (+7)</sup>
+</div>
+<div id="next-tick">Next tick <span class="minutes"></span>:<span class="seconds"></span></div>
+</div></a>
+<script>
+var my_time_start = 81192;
+var server_time_start = 55992;
+var next_tick_start = 1608;
+var d = new Date();
+var time_start = d.getTime();
+update_game_clock();
+</script></td></tr>
+<tr><td>
+<a class = "button" href = "index.php" style="text-decoration:none"><u>C</u>ity center</a><ul>
+<li><a class = "menu" href = "index.php?page=camp" style="text-decoration:none"><u>E</u>ncampment</a></ul><h2>Your Country</h2>
+<ul>
+<li><a class = "menu" href = "chat.php" style="text-decoration:none" target="_blank">Chat</a>
+<li><a class = "menu" href = "index.php?page=friends" style="text-decoration:none">Pla<u>y</u>ers</a>
+<li><a class = "menu" href = "index.php?page=country" style="text-decoration:none">Co<u>u</u>ntry&nbsp;Talk</a>
+<li><a class = "menu" href = "index.php?page=battle&sel=pvp" style="text-decoration:none">PVP Results</a>
+</ul><h2>Age&nbsp;211</h2><p >Day 2</p>
+<ul>
+<li><a class = "menu" href = "index.php?page=map" style="text-decoration:none"><u>M</u>ap</a>
+<li><a class = "menu" href = "index.php?page=forum">TLK Forum</a>
+<li><a class = "menu" href = "ranking.php?countries=1" style="text-decoration:none">Countries</a>
+<li><a class = "menu" href = "index.php?page=wars" style="text-decoration:none"><u>W</u>ars</a>
+<li><a class = "menu" href = "ranking.php" style="text-decoration:none"><u>R</u>anking</a>
+<li><a class = "menu" href = "index.php?page=stats">Stats</a>
+<li><a class = "menu" href = "index.php?page=battle&amp;sel=city" style="text-decoration:none">City Battles</a>
+</ul><h2>Resources</h2>
+<ul>
+<li><a class = "menu" href = "index.php?page=news">News</a>
+<li><a class = "menu" href = "reference.php">Reference Guide</a>
+<li><a class = "menu" href = "faq.php">Faq&nbsp;/&nbsp;Help</a>
+<li><a class = "menu" href = "vip.php">Nobility</a>
+<li><a class = "menu" href = "index.php?page=hof">Hall of Fame</a>
+<li><a class = "menu" href = "index.php?page=contact">Contact/Staff</a>
+<li><a class = "menu" href = "https://bitbucket.org/tlkgamedevelopmentltd/the-last-knights/issues" target="_blank">Bugs, issues & ideas</a>
+</ul><img src=/images/ornament.gif></td></tr></table>
+
+</td>
+<td width="768" valign="top">
+<div id="userbar" class="normal">
+<a href="index.php?page=profile&amp;country=Goryeo" ><img src="/images/flags/asia/Goryeo.png" alt="Goryeo" class="flag symbol" title="Goryeo"  /></a> <img src="/images/Captain.png" alt="Captain*" class="rank symbol" title="Captain*"  /> Captain* <a href="index.php?page=profile&username=Livvo" class="userlink">Livvo</a> <a href="index.php?action=logout" class="logout">[logout]</a>
+
+<div class="usermenu">
+<a href="#" onclick='location.reload(true); return false;' title="Refresh"><img src="images/icons/reload.png" class="icon"></a>
+<a href="index.php?page=msg" title="Messages (s)"><img src="images/icons/envelope-small.png" class="icon"><span id="unread-msg" class="counter">0</span></a>
+<a href="index.php?page=battle" title="Your battle results" class="battleresults"><img src="images/battle-small.png" class="icon"><span id="new-battles" class="counter">0</span></a>
+<a href="buddy.php" title="Friends"><img src="images/icons/friends.png" class="icon"></a>
+<a href="index.php?page=settings" title="Profile (p)"><img src="images/icons/cog.png" class="icon"></a>
+</div>
+</div>
+<audio id="battle-alert" preload="auto">
+<source src="sounds/battle-alert2.mp3" type="audio/mp3">
+<source src="sounds/battle-alert2.wav" type="audio/wav">
+</audio>
+<audio id="msg-alert" preload="auto">
+<source src="sounds/msg-alert3.mp3" type="audio/mp3">
+<source src="sounds/msg-alert3.wav" type="audio/wav">
+</audio>
+<script>
+var playsounds = '1';
+var battlecount = -1;
+var messagecount = -1;
+var fromsession = 0;
+update_unread_counters(30000);
+</script>
+<!-- #SYS_NOTICES# -->
+<table width="100%" class="main"> <!-- <table class="main width_100%"> Nuvelle code-->
+<tr><td valign="top">
+<p><p><h2>Ranking list</h2><div class="tabs"><a class="tab selected" href="/ranking.php?tab=players">Individual ranking</a><a class="tab" href="/ranking.php?tab=pvp">PVP ranking</a><a class="tab" href="/ranking.php?tab=medals">Medal ranking</a><a class="tab" href="/ranking.php?tab=heroes">Hero ranking</a></div><div class="tabs-footer"></div><p align="center">&nbsp;<b><<</b>&nbsp;&nbsp;<b>[1]</b>&nbsp;&nbsp;<a href = "ranking.php?start=2">[2]</a>&nbsp;&nbsp;<a href = "ranking.php?start=3">[3]</a>&nbsp; ... &nbsp;<a href = "ranking.php?start=13">[13]</a>&nbsp;<a href = "ranking.php?start=2">>></a>&nbsp;</p><table class="headquarters_nowidth" cellspacing="0"><tr><th width="4%"><b>No.</b></th><th width="4%"></th><th colspan="2" width="22%"><b>Rank</b></th><th width="28%"><b>Player</b></th><th width="5%">&nbsp;</th><th width="5%"><b>Nation</b></th><th width="7%"><b>Points</b></th><th width="5%">Wins</th><th width="5%">Losses</th><th width="5%">SFs</th></tr><tr class="alternate"><td>1</td><td width="1"><span title="online"><img src="images/online2.gif"></span></td><td width="1"><img src="/images/Vice Marshal.png" alt="Vice Marshal" class="rank symbol" title="Vice Marshal"  /></td><td>Vice Marshal</td><td><a href="index.php?page=profile&username=Hanne" class="userlink">Hanne</a></td><td> <b>[LD]</b></td><td><a href="index.php?page=profile&amp;country=Srivijaya" ><img src="/images/flags/asia/Srivijaya.png" alt="Srivijaya" class="flag symbol" title="Srivijaya"  /></a></a></td><td><b>46,927</b></td><td><font size="2">864</font></td><td><font size="2">1</font></td><td><font size="2">0</font></td></tr><tr class=""><td>2</td><td width="1"><span title="online"><img src="images/online2.gif"></span></td><td width="1"><img src="/images/Vice Marshal.png" alt="Vice Marshal" class="rank symbol" title="Vice Marshal"  /></td><td>Vice Marshal</td><td><a href="index.php?page=profile&username=Cranberry" class="userlink">Cranberry</a></td><td> [HC]</td><td><a href="index.php?page=profile&amp;country=Srivijaya" ><img src="/images/flags/asia/Srivijaya.png" alt="Srivijaya" class="flag symbol" title="Srivijaya"  /></a></a></td><td><b>46,610</b></td><td><font size="2">787</font></td><td><font size="2">1</font></td><td><font size="2">7</font></td></tr><tr class="alternate"><td>3</td><td width="1"><span title="online"><img src="images/online2.gif"></span></td><td width="1"><img src="/images/General.png" alt="General**" class="rank symbol" title="General**"  /></td><td>General**</td><td><a href="index.php?page=profile&username=Klakun" class="userlink">Klakun</a></td><td> [WC]</td><td><a href="index.php?page=profile&amp;country=Srivijaya" ><img src="/images/flags/asia/Srivijaya.png" alt="Srivijaya" class="flag symbol" title="Srivijaya"  /></a></a></td><td><b>42,878</b></td><td><font size="2">890</font></td><td><font size="2">2</font></td><td><font size="2">8</font></td></tr><tr class=""><td>4</td><td width="1"><span title="online"><img src="images/online2.gif"></span></td><td width="1"><img src="/images/General.png" alt="General**" class="rank symbol" title="General**"  /></td><td>General**</td><td><a href="index.php?page=profile&username=remonneke" class="userlink">remonneke</a></td><td> [HC]</td><td><a href="index.php?page=profile&amp;country=Srivijaya" ><img src="/images/flags/asia/Srivijaya.png" alt="Srivijaya" class="flag symbol" title="Srivijaya"  /></a></a></td><td><b>42,576</b></td><td><font size="2">909</font></td><td><font size="2">1</font></td><td><font size="2">7</font></td></tr><tr class="alternate"><td>5</td><td width="1"><span title="offline"><img src="images/offline.gif"></span></td><td width="1"><img src="/images/General.png" alt="General**" class="rank symbol" title="General**"  /></td><td>General**</td><td><a href="index.php?page=profile&username=L03R" class="userlink">L03R</a></td><td></td><td><a href="index.php?page=profile&amp;country=Ghurid Sultanate" ><img src="/images/flags/asia/Ghurid Sultanate.png" alt="Ghurid Sultanate" class="flag symbol" title="Ghurid Sultanate"  /></a></a></td><td><b>42,372</b></td><td><font size="2">667</font></td><td><font size="2">1</font></td><td><font size="2">0</font></td></tr><tr class=""><td>6</td><td width="1"><span title="online"><img src="images/online2.gif"></span></td><td width="1"><img src="/images/General.png" alt="General**" class="rank symbol" title="General**"  /></td><td>General**</td><td><a href="index.php?page=profile&username=Hans" class="userlink">Hans</a></td><td> [WC]</td><td><a href="index.php?page=profile&amp;country=Srivijaya" ><img src="/images/flags/asia/Srivijaya.png" alt="Srivijaya" class="flag symbol" title="Srivijaya"  /></a></a></td><td><b>41,382</b></td><td><font size="2">585</font></td><td><font size="2">3</font></td><td><font size="2">11</font></td></tr><tr class="alternate"><td>7</td><td width="1"><span title="online"><img src="images/online.gif"></span></td><td width="1"><img src="/images/General.png" alt="General**" class="rank symbol" title="General**"  /></td><td>General**</td><td><a href="index.php?page=profile&username=Azzy" class="userlink">Azzy</a></td><td> [HC]</td><td><a href="index.php?page=profile&amp;country=Srivijaya" ><img src="/images/flags/asia/Srivijaya.png" alt="Srivijaya" class="flag symbol" title="Srivijaya"  /></a></a></td><td><b>39,441</b></td><td><font size="2">777</font></td><td><font size="2">2</font></td><td><font size="2">12</font></td></tr><tr class=""><td>8</td><td width="1"><span title="online"><img src="images/online.gif"></span></td><td width="1"><img src="/images/General.png" alt="General*" class="rank symbol" title="General*"  /></td><td>General*</td><td><a href="index.php?page=profile&username=Crusie" class="userlink">Crusie</a></td><td></td><td><a href="index.php?page=profile&amp;country=Ghurid Sultanate" ><img src="/images/flags/asia/Ghurid Sultanate.png" alt="Ghurid Sultanate" class="flag symbol" title="Ghurid Sultanate"  /></a></a></td><td><b>38,498</b></td><td><font size="2">685</font></td><td><font size="2">4</font></td><td><font size="2">0</font></td></tr><tr class="alternate"><td>9</td><td width="1"><span title="online"><img src="images/online2.gif"></span></td><td width="1"><img src="/images/General.png" alt="General**" class="rank symbol" title="General**"  /></td><td>General**</td><td><a href="index.php?page=profile&username=Atirun" class="userlink">Atirun</a></td><td> [WC]</td><td><a href="index.php?page=profile&amp;country=Srivijaya" ><img src="/images/flags/asia/Srivijaya.png" alt="Srivijaya" class="flag symbol" title="Srivijaya"  /></a></a></td><td><b>37,772</b></td><td><font size="2">740</font></td><td><font size="2">6</font></td><td><font size="2">14</font></td></tr><tr class=""><td>10</td><td width="1"><span title="online"><img src="images/online.gif"></span></td><td width="1"><img src="/images/General.png" alt="General*" class="rank symbol" title="General*"  /></td><td>General*</td><td><a href="index.php?page=profile&username=Akh_Horus" class="userlink">Akh_Horus</a></td><td> [WC]</td><td><a href="index.php?page=profile&amp;country=Srivijaya" ><img src="/images/flags/asia/Srivijaya.png" alt="Srivijaya" class="flag symbol" title="Srivijaya"  /></a></a></td><td><b>37,541</b></td><td><font size="2">688</font></td><td><font size="2">1</font></td><td><font size="2">6</font></td></tr><tr class="alternate"><td>11</td><td width="1"><span title="online"><img src="images/online2.gif"></span></td><td width="1"><img src="/images/General.png" alt="General*" class="rank symbol" title="General*"  /></td><td>General*</td><td><a href="index.php?page=profile&username=The_Accountant" class="userlink">The_Accountant</a></td><td></td><td><a href="index.php?page=profile&amp;country=Tibet" ><img src="/images/flags/asia/Tibet.png" alt="Tibet" class="flag symbol" title="Tibet"  /></a></a></td><td><b>37,318</b></td><td><font size="2">700</font></td><td><font size="2">6</font></td><td><font size="2">0</font></td></tr><tr class=""><td>12</td><td width="1"><span title="offline"><img src="images/offline.gif"></span></td><td width="1"><img src="/images/General.png" alt="General*" class="rank symbol" title="General*"  /></td><td>General*</td><td><a href="index.php?page=profile&username=Inka_Williams" class="userlink">Inka_Williams</a></td><td></td><td><a href="index.php?page=profile&amp;country=Kediri" ><img src="/images/flags/asia/Kediri.png" alt="Kediri" class="flag symbol" title="Kediri"  /></a></a></td><td><b>36,071</b></td><td><font size="2">608</font></td><td><font size="2">0</font></td><td><font size="2">0</font></td></tr><tr class="alternate"><td>13</td><td width="1"><span title="online"><img src="images/online2.gif"></span></td><td width="1"><img src="/images/General.png" alt="General*" class="rank symbol" title="General*"  /></td><td>General*</td><td><a href="index.php?page=profile&username=Aiphaton" class="userlink">Aiphaton</a></td><td> [WC]</td><td><a href="index.php?page=profile&amp;country=Srivijaya" ><img src="/images/flags/asia/Srivijaya.png" alt="Srivijaya" class="flag symbol" title="Srivijaya"  /></a></a></td><td><b>36,066</b></td><td><font size="2">607</font></td><td><font size="2">4</font></td><td><font size="2">14</font></td></tr><tr class=""><td>14</td><td width="1"><span title="offline"><img src="images/offline2.gif"></span></td><td width="1"><img src="/images/General.png" alt="General*" class="rank symbol" title="General*"  /></td><td>General*</td><td><a href="index.php?page=profile&username=Wicky" class="userlink">Wicky</a></td><td></td><td><a href="index.php?page=profile&amp;country=Tatars" ><img src="/images/flags/asia/Tatars.png" alt="Tatars" class="flag symbol" title="Tatars"  /></a></a></td><td><b>35,697</b></td><td><font size="2">941</font></td><td><font size="2">7</font></td><td><font size="2">0</font></td></tr><tr class="alternate"><td>15</td><td width="1"><span title="offline"><img src="images/offline.gif"></span></td><td width="1"><img src="/images/General.png" alt="General*" class="rank symbol" title="General*"  /></td><td>General*</td><td><a href="index.php?page=profile&username=axi" class="userlink">axi</a></td><td></td><td><a href="index.php?page=profile&amp;country=Tatars" ><img src="/images/flags/asia/Tatars.png" alt="Tatars" class="flag symbol" title="Tatars"  /></a></a></td><td><b>35,690</b></td><td><font size="2">1030</font></td><td><font size="2">0</font></td><td><font size="2">0</font></td></tr><tr class=""><td>16</td><td width="1"><span title="online"><img src="images/online2.gif"></span></td><td width="1"><img src="/images/General.png" alt="General*" class="rank symbol" title="General*"  /></td><td>General*</td><td><a href="index.php?page=profile&username=Padan" class="userlink">Padan</a></td><td> <b>[LD]</b></td><td><a href="index.php?page=profile&amp;country=Chalukya" ><img src="/images/flags/asia/Chalukya.png" alt="Chalukya" class="flag symbol" title="Chalukya"  /></a></a></td><td><b>35,439</b></td><td><font size="2">592</font></td><td><font size="2">3</font></td><td><font size="2">0</font></td></tr><tr class="alternate"><td>17</td><td width="1"><span title="offline"><img src="images/offline2.gif"></span></td><td width="1"><img src="/images/General.png" alt="General*" class="rank symbol" title="General*"  /></td><td>General*</td><td><a href="index.php?page=profile&username=BloodFury" class="userlink">BloodFury</a></td><td></td><td><a href="index.php?page=profile&amp;country=Kamakura Shogunate" ><img src="/images/flags/asia/Kamakura Shogunate.png" alt="Kamakura Shogunate" class="flag symbol" title="Kamakura Shogunate"  /></a></a></td><td><b>34,878</b></td><td><font size="2">606</font></td><td><font size="2">1</font></td><td><font size="2">0</font></td></tr><tr class=""><td>18</td><td width="1"><span title="offline"><img src="images/offline2.gif"></span></td><td width="1"><img src="/images/General.png" alt="General*" class="rank symbol" title="General*"  /></td><td>General*</td><td><a href="index.php?page=profile&username=Blumpkin_Khan" class="userlink">Blumpkin_Khan</a></td><td></td><td><a href="index.php?page=profile&amp;country=Nepal" ><img src="/images/flags/asia/Nepal.png" alt="Nepal" class="flag symbol" title="Nepal"  /></a></a></td><td><b>34,710</b></td><td><font size="2">821</font></td><td><font size="2">3</font></td><td><font size="2">0</font></td></tr><tr class="alternate"><td>19</td><td width="1"><span title="online"><img src="images/online2.gif"></span></td><td width="1"><img src="/images/General.png" alt="General*" class="rank symbol" title="General*"  /></td><td>General*</td><td><a href="index.php?page=profile&username=KingAdoniss" class="userlink">KingAdoniss</a></td><td> [WC]</td><td><a href="index.php?page=profile&amp;country=Chalukya" ><img src="/images/flags/asia/Chalukya.png" alt="Chalukya" class="flag symbol" title="Chalukya"  /></a></a></td><td><b>34,358</b></td><td><font size="2">593</font></td><td><font size="2">1</font></td><td><font size="2">0</font></td></tr><tr class=""><td>20</td><td width="1"><span title="online"><img src="images/online2.gif"></span></td><td width="1"><img src="/images/General.png" alt="General**" class="rank symbol" title="General**"  /></td><td>General**</td><td><a href="index.php?page=profile&username=Dragenser" class="userlink">Dragenser</a></td><td></td><td><a href="index.php?page=profile&amp;country=Tatars" ><img src="/images/flags/asia/Tatars.png" alt="Tatars" class="flag symbol" title="Tatars"  /></a></a></td><td><b>34,128</b></td><td><font size="2">616</font></td><td><font size="2">2</font></td><td><font size="2">0</font></td></tr><tr class="alternate"><td>21</td><td width="1"><span title="offline"><img src="images/offline.gif"></span></td><td width="1"><img src="/images/General.png" alt="General*" class="rank symbol" title="General*"  /></td><td>General*</td><td><a href="index.php?page=profile&username=riverdash" class="userlink">riverdash</a></td><td></td><td><a href="index.php?page=profile&amp;country=Kediri" ><img src="/images/flags/asia/Kediri.png" alt="Kediri" class="flag symbol" title="Kediri"  /></a></a></td><td><b>33,790</b></td><td><font size="2">665</font></td><td><font size="2">1</font></td><td><font size="2">0</font></td></tr><tr class=""><td>22</td><td width="1"><span title="online"><img src="images/online2.gif"></span></td><td width="1"><img src="/images/General.png" alt="General*" class="rank symbol" title="General*"  /></td><td>General*</td><td><a href="index.php?page=profile&username=fiddlefaddle" class="userlink">fiddlefaddle</a></td><td></td><td><a href="index.php?page=profile&amp;country=Nepal" ><img src="/images/flags/asia/Nepal.png" alt="Nepal" class="flag symbol" title="Nepal"  /></a></a></td><td><b>33,192</b></td><td><font size="2">594</font></td><td><font size="2">4</font></td><td><font size="2">0</font></td></tr><tr class="alternate"><td>23</td><td width="1"><span title="offline"><img src="images/offline2.gif"></span></td><td width="1"><img src="/images/General.png" alt="General*" class="rank symbol" title="General*"  /></td><td>General*</td><td><a href="index.php?page=profile&username=scoop" class="userlink">scoop</a></td><td></td><td><a href="index.php?page=profile&amp;country=Khmer Empire" ><img src="/images/flags/asia/Khmer Empire.png" alt="Khmer Empire" class="flag symbol" title="Khmer Empire"  /></a></a></td><td><b>32,963</b></td><td><font size="2">508</font></td><td><font size="2">2</font></td><td><font size="2">0</font></td></tr><tr class=""><td>24</td><td width="1"><span title="online"><img src="images/online2.gif"></span></td><td width="1"><img src="/images/General.png" alt="General*" class="rank symbol" title="General*"  /></td><td>General*</td><td><a href="index.php?page=profile&username=TFD_Ishtar" class="userlink">TFD_Ishtar</a></td><td></td><td><a href="index.php?page=profile&amp;country=Khmer Empire" ><img src="/images/flags/asia/Khmer Empire.png" alt="Khmer Empire" class="flag symbol" title="Khmer Empire"  /></a></a></td><td><b>32,065</b></td><td><font size="2">635</font></td><td><font size="2">1</font></td><td><font size="2">0</font></td></tr><tr class="alternate"><td>25</td><td width="1"><span title="offline"><img src="images/offline1.gif"></span></td><td width="1"><img src="/images/General.png" alt="General" class="rank symbol" title="General"  /></td><td>General</td><td><a href="index.php?page=profile&username=collector" class="userlink">collector</a></td><td></td><td><a href="index.php?page=profile&amp;country=Kashmir" ><img src="/images/flags/asia/Kashmir.png" alt="Kashmir" class="flag symbol" title="Kashmir"  /></a></a></td><td><b>31,211</b></td><td><font size="2">500</font></td><td><font size="2">1</font></td><td><font size="2">0</font></td></tr></table><p align="center">You can search the ranking on nationality, use a keyword to search username,playername or rank or both.<br>'%' can be used as wildcard for 0 or more characters.<form action="ranking.php" method="get"><input type="hidden" value="ranking" name="page"><input type="hidden" value="" name="tab"><input type="text" name="name" value=""><select name="nation"><option value="all">All Nations</option><option value="19">Chalukya</option><option value="25">Champa</option><option value="17">Chauhan</option><option value="20">Chola</option><option value="10">Dai Viet</option><option value="21">Dali</option><option value="23">Dvaravati</option><option value="11">Ghurid Sultanate</option><option value="6">Goryeo</option><option value="8">Jin Dynasty</option><option value="7">Kamakura Shogunate</option><option value="1">Kara Khitai</option><option value="12">Kashmir</option><option value="30">Kediri</option><option value="24">Khmer Empire</option><option value="29">Kingdom of Luwu</option><option value="26">Kingdom of Luzong</option><option value="5">Mongol Khanate</option><option value="13">Nepal</option><option value="22">Pagan</option><option value="14">Pala</option><option value="18">Sena</option><option value="16">Solanki</option><option value="9">Song Dynasty</option><option value="28">Srivijaya</option><option value="4">Tangut Empire</option><option value="3">Tatars</option><option value="15">Tibet</option><option value="2">Uyghurs</option><option value="0">no country</option></select><select name="title"><option value="all">All Titles</option><option value="8">Admins</option><option value="2">Dukes</option><option value="1">Knights</option><option value="0">Soldiers</option></select>&nbsp;&nbsp;HC<input type="checkbox" name="hc">&nbsp;&nbsp;online only<input type="checkbox" name="online"><input type="submit" class="button" value="Search" name="search"></form>
+</td></tr></table>
+</td>
+<td class="banner" valign="top" width="162"><!-- Last-Knights-Side-Wide-Sky -->
+</td></tr>
+</table>
+<!-- #BOTTOMADSCRIPT# -->
+<div class="center">
+<p><small>&copy; 2005&ndash;2015 <a href="http://www.lastknights.com">TLK Game Development LTD</a> || <a href="disclaimer.php" rel="nofollow">Disclaimer</a></small></p>
+</div>
+</body>
+</html><script language="javascript"
+type="text/javascript">window.status="mysql: 5 queries in 0.0026 sec. php: 1451079192.9533 sec.";</script>
