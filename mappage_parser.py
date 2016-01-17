@@ -16,6 +16,7 @@ django.setup()
 from src import settings
 
 from todos.models import TodoList, TodoType
+from lk.models import City
 
 battle_type_name = OrderedDict()
 battle_type_name['Tot'] = 0
@@ -65,7 +66,15 @@ for x in range(1, 300):
     if border_cities_data:
         for city in border_cities_data:
             print(city)
-    exit()
+
+        print(json.dumps(border_cities_data))
+
+    print(x)
+    print(country_city_data[0])
+    print(map_large_page_data[x - 1])
+    print(City.objects.get_or_create(country=country_city_data[0], city_name=map_large_page_data[x -1], connected_cities=json.dumps(border_cities_data)))
+    if x > 30:
+        exit()
 
 
 
