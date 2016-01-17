@@ -5,7 +5,7 @@ import time
 import re
 import collections
 from datetime import datetime as dt, timedelta
-from pync import Notifier
+#from pync import Notifier
 
 import irc_argument_parser as irc_ap
 from irc_argument_parser import ArgumentParser, LeaddArgument, SfsArgument
@@ -248,7 +248,7 @@ while 1:
 
                 if attacker_country == 'Mauretania':
                     send_notice(sock1, '#LivvTest', 'REJOIN!')
-                    Notifier.notify('REJOIN', title='TLK')
+                    #Notifier.notify('REJOIN', title='TLK')
 
                 todos = Todos_Todolist.select().where(Todos_Todolist.status == False, Todos_Todolist.todo_type_id == 1).order_by(Todos_Todolist.identifier)
 
