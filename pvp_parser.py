@@ -53,7 +53,7 @@ while True:
     battles_list = re.findall('a href="index.php\?page=battle&amp;battle_id=(\d*)&amp;back=pvp&amp;sel=pvp&amp;start=', str(resp_get_city_battles.content), re.DOTALL)
     if not battles_list:
         continue
-    battles_list = re.findall('tr class="(?:even|odd)".*?class="flag symbol" title="(\w*)".*?<td>(.*?)</td>.*?color="(?:red|lime)">.*?(loses|defeats).*?</font.*?class="flag symbol" title="(\w*)".*?span title="(.*?)" >.*?</span>.*?a href="index.php\?page=battle&amp;battle_id=([\d\;&]*)&amp;back=pvp&amp;sel=pvp&amp;start=', resp_get_city_battles.content, re.DOTALL)
+    battles_list = re.findall('tr class="(?:even|odd)".*?class="flag symbol" title="(\w*)".*?<td>(.*?)</td>.*?color="(?:red|lime)">.*?(loses|defeats).*?</font.*?class="flag symbol" title="(\w*)".*?span title="(.*?)" >.*?</span>.*?a href="index.php\?page=battle&amp;battle_id=([\d\;&]*)&amp;back=pvp&amp;sel=pvp&amp;start=', str(resp_get_city_battles.content), re.DOTALL)
     battles_list.sort(reverse=True)
     battles_list = {int(battle_id): {'attacker_country':a, 'attacker_name_stats':b, 'outcome': c, 'defender_country':d, 'time': e} for (a,b,c,d,e, battle_id) in battles_list}
     battles_list = collections.OrderedDict(sorted(battles_list.items(), reverse=True))
@@ -74,7 +74,7 @@ while True:
                     cookies=cookies
             )
 
-            city_battle_stats = re.findall('<table width="100%">(.*?)</table>', resp_get_city_battle_latest.content, re.DOTALL)
+            city_battle_stats = re.findall('<table width="100%">(.*?)</table>', str(resp_get_city_battle_latest.content), re.DOTALL)
             attacker_name, outcome, defender_name = re.findall('<font size="4">(.*?)</font>', city_battle_stats[1], re.DOTALL)
             city_battle_stats_tr = re.findall('<td>(.*?)</td>', city_battle_stats.pop(), re.DOTALL)
             #print city_battle_stats
