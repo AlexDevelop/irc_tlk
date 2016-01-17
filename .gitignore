@@ -1,8 +1,7 @@
-<<<<<<< HEAD
 venv
 .idea
 .c9
-=======
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -62,4 +61,3 @@ docs/_build/
 
 # PyBuilder
 target/
->>>>>>> c8056397eaff4295a54f14306431705de51478fa
