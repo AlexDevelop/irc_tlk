@@ -1,6 +1,7 @@
 venv
 .idea
 .c9
+nohup.out
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
