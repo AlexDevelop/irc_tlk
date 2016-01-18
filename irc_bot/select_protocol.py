@@ -11,6 +11,10 @@ import irc_argument_parser as irc_ap
 from irc_argument_parser import ArgumentParser, LeaddArgument, SfsArgument
 from peewee_db import todos, todos_pvp, Todos_Todolist
 
+#os.environ.setdefault("DJANGO_SETTINGS_MODULE", "src.settings")
+#import django
+#django.setup()
+
 # result_receiving = 'abc !lead add livvo legate'
 # found_plugin = [x for x in ArgumentParser().get_subclasses() if x in result_receiving]
 # plugin_class = "{}Argument".format(found_plugin.pop().replace('!', '').capitalize())

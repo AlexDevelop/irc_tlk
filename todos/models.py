@@ -33,6 +33,20 @@ class Setting(TimeStampedModel):
     name = models.CharField(max_length=255, blank=False)
     channel = models.CharField(max_length=255, blank=False)
     value = models.CharField(max_length=255, blank=False)
+    setting_data = models.ForeignKey(to='SettingData')
 
     def __str__(self):
-        return "{} - {}".format(name=self.name, channel=self.channel)
+        #name = 'TestName'
+        #channel = 'TestChannel'
+
+        #if self.name:
+       #:x     name = self.name
+
+        #if self.channel:
+        #    channel = self.channel
+        #return "{name} - {channel}".format(name=name, channel=channel)
+        return self.name
+
+class SettingData(TimeStampedModel):
+    _key = models.CharField(max_length=255, blank=False)
+    _value = models.CharField(max_length=255, blank=False)

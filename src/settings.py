@@ -39,10 +39,11 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
 
     'rest_framework',
-    
+
     # Custom
     'lk',
     'todos',
+    'irc_bot',
 )
 
 MIDDLEWARE_CLASSES = (

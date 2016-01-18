@@ -1,7 +1,17 @@
+import os
 import itertools
 from datetime import datetime as dt, timedelta
+import sys
+sys.path.append('/home/hvhoek/alex/irc_tlk')
+
+import django
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "src.settings")
+import django
+django.setup()
+
 from peewee_db import Todos_Todolist
 from pytz import timezone
+from todos.models import Setting, SettingData
 
 
 class ArgumentParser(object):
@@ -112,6 +122,37 @@ class SfsArgument(ArgumentParser):
 
     def run(self):
         print('SFFSFS run {}'.format(self.number()))
+
+class SettingArgument(ArgumentParser):
+    name = '!setting'
+    commands = ({'!setting list', '!setting add channel !command on|off'})
+
+    def add(self, *args):
+        channel= args[0]
+        _key = args[1]
+        _value = args[2]
+        setting_data, created = SettingData.objects.get_or_create(_key=_key)
+        setting_data._value = _value
+        setting_data.save()
+        print(setting_data, created)
+        name = "{}_{}".format(_key, _value)
+        setting, created = Setting.objects.get_or_create(name=name, channel=channel, setting_data=setting_data)
+        print(setting, created)
+
+    def remove(self, *args):
+        pass
+
+    def list(self, *args):
+        pass
+
+    def run(self):
+        command = self.args[0]
+        try:
+            response = getattr(self, command)(*self.args[1:])
+            return response
+        except AttributeError:
+            print('START DEBUG:')
+
 
 
 class ReminderArgument(ArgumentParser):
