@@ -26,7 +26,14 @@ from peewee_db import todos, todos_pvp, Todos_Todolist
 # print(plugin_class('!lead list').data)
 # exit()
 #
-
+def min_max_str(data, length=6, rev=False):
+    number = data
+    total = length - len(str(number))
+    if rev == False:
+        return "".join(["".join([" " for x in range(1, total)]), str(number),])
+    else:
+        first_join = [str(number), "".join([" " for x in range(1, total)])]
+        return "".join(first_join)
 sock1 = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 #sock2 = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
@@ -202,6 +209,34 @@ while 1:
                 defender_dead = sum([int(json.loads(todos[0].data)['defender'][x]['Dead']) for x in defender_types])
                 defender_leftover = defender_tot - defender_inj - defender_dead
 
+                data_ext = json.loads(todos[0].data)['attacker']
+                data_extf = json.loads(todos[0].data)['defender']
+                att_lines = []
+                def_lines = []
+
+                for _type in attacker_types:
+                    att = [min_max_str(data_ext[_type]['Tot']), min_max_str(data_ext[_type]['Inj']), min_max_str(data_ext[_type]['Dead']), min_max_str(data_ext[_type]['Capt'])]
+                    _def = [min_max_str(data_extf[_type]['Tot']), min_max_str(data_extf[_type]['Inj']), min_max_str(data_extf[_type]['Dead']), min_max_str(data_extf[_type]['Capt'])]
+                    att_lines.append(" ".join(att))
+                    def_lines.append(" ".join(_def))
+
+                defenders_count = 0
+                if data_extf['Commanders']['Tot'] > 0:
+                    defenders_count = data_extf['Commanders']['Tot']
+                    soldiers_str = min_max_str('Soldiers', length=19, rev=True)
+                    send_to_channel(sock1, connected_channels, "{} {} {} {} {} {} {} {} {} {}".format(
+                      min_max_str('Soldiers', length=19, rev=True), min_max_str('Tot', length=8, rev=True), min_max_str('Inj', length=8, rev=True),  min_max_str('Dead', length=8, rev=True), min_max_str('Capt', length=8, rev=True),
+                      min_max_str('Soldiers', length=19, rev=True), min_max_str('Tot', length=8, rev=True), min_max_str('Inj', length=8, rev=True),  min_max_str('Dead', length=8, rev=True), min_max_str('Capt', length=8, rev=True),
+                    ))
+                    commander_str = min_max_str('Commanders', length=19, rev=True)
+                    print(soldiers_str)
+                    print(commander_str)
+                    send_to_channel(sock1, connected_channels, "{} {} {} {}".format(commander_str, att_lines[0], commander_str, def_lines[0]))
+                    send_to_channel(sock1, connected_channels, "Heroes     {}    Heroes     {}".format(att_lines[1], def_lines[1]))
+                    send_to_channel(sock1, connected_channels, "Artillery  {}    Artillery  {}".format(att_lines[2], def_lines[2]))
+                    send_to_channel(sock1, connected_channels, "Cavallery  {}    Cavallery  {}".format(att_lines[3], def_lines[3]))
+                    send_to_channel(sock1, connected_channels, "Infantry   {}    Infantry   {}".format(att_lines[4], def_lines[4]))
+
                 if attacker_leftover > defender_leftover:
                     outcome = 'Attacker wins'
                 elif defender_leftover > attacker_leftover:
@@ -234,9 +269,10 @@ while 1:
                 todos[0].status = True
                 todos[0].save()
 
-                country_message = "{bg}{attacker_country} vs {defender_country}{bg_end}: {attacker_name_stats} {outcome_txt} {defender_name}".format(
+                country_message = "{bg}{attacker_country} vs {defender_country}{bg_end}: {attacker_name_stats} {outcome_txt} {defender_name} ({defenders_count})".format(
                         attacker_country=attacker_country, defender_country=defender_country, attacker_name_stats=attacker_name_stats,
-                        outcome_txt=outcome_txt, defender_name=defender_name, bg=background_white_color_black, bg_end=background_end)
+                        outcome_txt=outcome_txt, defender_name=defender_name, bg=background_white_color_black, bg_end=background_end,
+                        defenders_count=defenders_count)
                 send_to_channel(sock1, connected_channels, country_message)
 
                 # Stat: 448 vs 120 soldiers. 448 (100.0%) vs 49 (40.83%) standing. Attacker wins! 11 (22.45%) captured! FLAWLESS!!
@@ -375,7 +411,17 @@ while 1:
                 sfs = False
 
             if '!pvp off' in result_receiving:
-                pvp = False
+                pvp = Falsei
+
+            if '!test' in result_receiving:
+                sold = min_max_str('Soldiers', length=15, rev=True)
+                comm = min_max_str('Commanders', length=15, rev=True)
+                message_s = '{} 1 {} 44'.format(sold, sold)
+                message_c = '{} 2 {} 33'.format(comm, comm)
+                channel = re.findall('(#\w+) ', result_receiving)
+                send_to_channel(sock, channel[0], message_s)
+                send_to_channel(sock, channel[0], message_c)
+
 
     seconds_running += 1
 
