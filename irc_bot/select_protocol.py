@@ -10,6 +10,7 @@ from datetime import datetime as dt, timedelta
 import irc_argument_parser as irc_ap
 from irc_argument_parser import ArgumentParser, LeaddArgument, SfsArgument
 from peewee_db import todos, todos_pvp, Todos_Todolist
+from battleparser import BattleParserIrc
 
 #os.environ.setdefault("DJANGO_SETTINGS_MODULE", "src.settings")
 #import django
@@ -29,10 +30,17 @@ from peewee_db import todos, todos_pvp, Todos_Todolist
 def min_max_str(data, length=6, rev=False):
     number = data
     total = length - len(str(number))
+    if ' ' in str(number):
+        name, number_rev = str(number).split(' ')
     if rev == False:
         return "".join(["".join([" " for x in range(1, total)]), str(number),])
     else:
-        first_join = [str(number), "".join([" " for x in range(1, total)])]
+        if ' ' in str(number):
+            total = length - len(name) - len(str(number_rev))
+        if ' ' in str(number):
+            first_join = [name, "".join([" " for x in range(1, total)]), str(number_rev)]
+        else:
+            first_join = [number, "".join([" " for x in range(1, total)])]
         return "".join(first_join)
 sock1 = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 #sock2 = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -41,7 +49,7 @@ sock1.connect(('irc.gamesurge.net', 6667))
 #sock2.connect(('irc.gamesurge.net', 6667))
 connected_sockets = []
 channels = ['#DesertAndPlains']  # '#LivvTest', '#LivvTest2', '#DesertAndPlains'
-channels = ['#LivvTest', ]#'#mountainclan']  # '#LivvTest', '#LivvTest2', '#DesertAndPlains'
+channels = ['#LivvTest', '#raberber', ]  #'#mountainclan']  # '#LivvTest', '#LivvTest2', '#DesertAndPlains'
 connected_channels = []
 pinged_sockets = []
 
@@ -64,7 +72,7 @@ def check_flood_protection():
     for item in flood_protection:
         if item < (timestamp_now - 12):
             flood_protection.remove(item)
-    if len(flood_protection) > 4:
+    if len(flood_protection) > 6:
         print('FLOOD', len(flood_protection))
         print(flood_protection[0] < timestamp_now)
         print(flood_protection[0], timestamp_now)
@@ -211,31 +219,8 @@ while 1:
 
                 data_ext = json.loads(todos[0].data)['attacker']
                 data_extf = json.loads(todos[0].data)['defender']
-                att_lines = []
-                def_lines = []
-
-                for _type in attacker_types:
-                    att = [min_max_str(data_ext[_type]['Tot']), min_max_str(data_ext[_type]['Inj']), min_max_str(data_ext[_type]['Dead']), min_max_str(data_ext[_type]['Capt'])]
-                    _def = [min_max_str(data_extf[_type]['Tot']), min_max_str(data_extf[_type]['Inj']), min_max_str(data_extf[_type]['Dead']), min_max_str(data_extf[_type]['Capt'])]
-                    att_lines.append(" ".join(att))
-                    def_lines.append(" ".join(_def))
 
                 defenders_count = 0
-                if data_extf['Commanders']['Tot'] > 0:
-                    defenders_count = data_extf['Commanders']['Tot']
-                    soldiers_str = min_max_str('Soldiers', length=19, rev=True)
-                    send_to_channel(sock1, connected_channels, "{} {} {} {} {} {} {} {} {} {}".format(
-                      min_max_str('Soldiers', length=19, rev=True), min_max_str('Tot', length=8, rev=True), min_max_str('Inj', length=8, rev=True),  min_max_str('Dead', length=8, rev=True), min_max_str('Capt', length=8, rev=True),
-                      min_max_str('Soldiers', length=19, rev=True), min_max_str('Tot', length=8, rev=True), min_max_str('Inj', length=8, rev=True),  min_max_str('Dead', length=8, rev=True), min_max_str('Capt', length=8, rev=True),
-                    ))
-                    commander_str = min_max_str('Commanders', length=19, rev=True)
-                    print(soldiers_str)
-                    print(commander_str)
-                    send_to_channel(sock1, connected_channels, "{} {} {} {}".format(commander_str, att_lines[0], commander_str, def_lines[0]))
-                    send_to_channel(sock1, connected_channels, "Heroes     {}    Heroes     {}".format(att_lines[1], def_lines[1]))
-                    send_to_channel(sock1, connected_channels, "Artillery  {}    Artillery  {}".format(att_lines[2], def_lines[2]))
-                    send_to_channel(sock1, connected_channels, "Cavallery  {}    Cavallery  {}".format(att_lines[3], def_lines[3]))
-                    send_to_channel(sock1, connected_channels, "Infantry   {}    Infantry   {}".format(att_lines[4], def_lines[4]))
 
                 if attacker_leftover > defender_leftover:
                     outcome = 'Attacker wins'
@@ -269,21 +254,35 @@ while 1:
                 todos[0].status = True
                 todos[0].save()
 
+                # 1000
+                total_soldiers = attacker_leftover + defender_leftover
+                attacker_leftover_perc = round(attacker_leftover / attacker_tot * 100, 2)
+                defender_leftover_perc = round(defender_leftover / defender_tot * 100, 2)
+
+                defenders_count = data_extf['Commanders']['Tot']
                 country_message = "{bg}{attacker_country} vs {defender_country}{bg_end}: {attacker_name_stats} {outcome_txt} {defender_name} ({defenders_count})".format(
                         attacker_country=attacker_country, defender_country=defender_country, attacker_name_stats=attacker_name_stats,
                         outcome_txt=outcome_txt, defender_name=defender_name, bg=background_white_color_black, bg_end=background_end,
                         defenders_count=defenders_count)
                 send_to_channel(sock1, connected_channels, country_message)
 
+                if data_extf['Commanders']['Tot'] > 0:
+                    bp = BattleParserIrc(data)
+                    bp.run()
+                    for line in bp.lines:
+                        send_to_channel(sock1, connected_channels, line)
+
                 # Stat: 448 vs 120 soldiers. 448 (100.0%) vs 49 (40.83%) standing. Attacker wins! 11 (22.45%) captured! FLAWLESS!!
-                message = "{attacker_name} vs {defender_name}. Stat: {attacker_tot} vs {defender_tot} soldiers. " \
-                          "{attacker_leftover} vs {defender_leftover} standing. " \
+                # {attacker_name} vs {defender_name}.
+                message = "Stat: {attacker_tot} vs {defender_tot} soldiers. " \
+                          "{attacker_leftover} ({attacker_leftover_perc}%) vs {defender_leftover} ({defender_leftover_perc}%) standing. " \
                           "{outcome}! {points}- Time CET (+1): {battle_time}" \
                           "" \
                           "".format(attacker_name=attacker_name, defender_name=defender_name,
                                     attacker_tot=attacker_tot, defender_tot=defender_tot,
                                     attacker_leftover=attacker_leftover, defender_leftover=defender_leftover,
-                                    outcome=outcome, battle_time=battle_time, points=points,)
+                                    outcome=outcome, battle_time=battle_time, points=points,
+                                    defender_leftover_perc=defender_leftover_perc, attacker_leftover_perc=attacker_leftover_perc)
                 send_to_channel(sock1, connected_channels, message)
 
                 if attacker_country == 'Mauretania':
@@ -333,12 +332,18 @@ while 1:
                 channel = re_channel.pop() if re_channel else 'Unknown'
                 extra = {
                     'nick': nick,
-                    'channel': channel # PRIVMSG #LivvTest :
+                    'channel': channel,  # PRIVMSG #LivvTest :
                 }
                 data = plugin_class(custom_args, **extra).data
                 if data:
-                    channel = re.findall('(#\w+) ', result_receiving)
-                    send_to_channel(sock, channel.pop(), data)
+                    if isinstance(data, list):
+                        for line in data:
+                            channel = re.findall('(#\w+) ', result_receiving)
+                            send_to_channel(sock, channel.pop(), line)
+                    else:
+
+                        channel = re.findall('(#\w+) ', result_receiving)
+                        send_to_channel(sock, channel.pop(), data)
 
             if '!Livvo' in result_receiving:
                 channel = re.findall('(#\w+) ', result_receiving)
@@ -388,10 +393,10 @@ while 1:
                         stats[data['defender_country']]['ties'] = stats[data['defender_country']]['ties'] + 1 if 'ties' in stats[data['defender_country']] else 1
 
                 if stats:
-                    calc_wins = stats['Mauretania']['wins']
-                    calc_losses = stats['Mauretania']['losses']
-                    calc_add = stats['Mauretania']['wins'] - stats['Mauretania']['losses']
-                    calc_ties = stats['Mauretania']['ties'] if 'ties' in stats['Mauretania'] else 0
+                    calc_wins = stats['Berber']['wins']
+                    calc_losses = stats['Berber']['losses']
+                    calc_add = stats['Berber']['wins'] - stats['Berber']['losses']
+                    calc_ties = stats['Berber']['ties'] if 'ties' in stats['Berber'] else 0
                     number_pvps = len(pvp_battles)
                     channel = re.findall('(#\w+) ', result_receiving)
                     message = '{bg}Number of PVPs the last {minutes} minutes: {number_pvps} Wins: {calc_wins} Losses: {calc_losses} Ties: {calc_ties} {bg_end}'.format(
@@ -411,16 +416,7 @@ while 1:
                 sfs = False
 
             if '!pvp off' in result_receiving:
-                pvp = Falsei
-
-            if '!test' in result_receiving:
-                sold = min_max_str('Soldiers', length=15, rev=True)
-                comm = min_max_str('Commanders', length=15, rev=True)
-                message_s = '{} 1 {} 44'.format(sold, sold)
-                message_c = '{} 2 {} 33'.format(comm, comm)
-                channel = re.findall('(#\w+) ', result_receiving)
-                send_to_channel(sock, channel[0], message_s)
-                send_to_channel(sock, channel[0], message_c)
+                pvp = False
 
 
     seconds_running += 1

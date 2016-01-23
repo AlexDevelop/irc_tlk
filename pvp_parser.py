@@ -113,7 +113,24 @@ while True:
 
                     count = 0
 
+            tz_custom = timezone('Europe/Amsterdam')
+            try:
+                dt_time = tz_custom.localize(dt.strptime(battle_stats['time'], '%A %B %dth %Y, %H:%M'))
+            except ValueError:
+                pass
+
+            try:
+                dt_time = tz_custom.localize(dt.strptime(battle_stats['time'], '%A %B %dst %Y, %H:%M'))
+            except ValueError:
+                pass
+
+            try:
+                dt_time = tz_custom.localize(dt.strptime(battle_stats['time'], '%A %B %dnd %Y, %H:%M'))
+            except ValueError:
+                pass
+
             default_tlk = {
+                'created': dt_time,
                 'todo_type': TodoType.objects.get(group='TLKPVP'),
                 'date_deadline': dt.now().replace(year=2100, month=1, day=1, hour=0, minute=0, microsecond=0,
                                                   tzinfo=timezone('Europe/Amsterdam'))
@@ -135,4 +152,5 @@ while True:
                     }
             )
             todolist_item.identifier = battle_id
+            todolist_item.created = dt_time
             todolist_item.save()

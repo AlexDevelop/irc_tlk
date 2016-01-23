@@ -1,4 +1,8 @@
 import json
+from itertools import permutations
+
+import sys
+
 import re
 import os
 import requests
@@ -45,6 +49,84 @@ cookies['usercookie2'] = '6f295f9a509f539e824cf369cf055207'
 cookies['user'] = 'Livvo%40www.lastknights.com'
 cookies['PHPSESSID'] = 't2jd2261j1lc34gqbnjdpsc0t5'
 
+city_from_name = 'Dublin'
+city_from = {"from": ('1', 'Dublin'),
+             "connected": [["Iceland", " Belfast"], ["England", " Galway"], ["England", " York"], ["England", " Cork"], ["England", " Liverpool"]]}
+city_to_name = 'Arendal'
+
+cities = [
+    {"from": ('1', 'Dublin'),
+     "connected": [["Iceland", " Belfast"], ["England", " Galway"], ["England", " York"], ["England", " Cork"],
+                   ["England", " Liverpool"]]},
+    {"from": ('2', 'Edinburgh'),
+     "connected": [["Muscovy", " Glasgow"], ["Iceland", " Belfast"], ["England", " Durham"]], },
+    {"from": ('3', 'Glasgow'), "connected": [["Iceland", " Stornoway"], ["Iceland", " Dundee"], ["Iceland", " Belfast"],
+                                             ["Iceland", " Edinburgh"], ["Iceland", " Hofn (2mp)"],
+                                             ["Muscovy", " Bergen (2mp)"]], },
+    {"from": ('4', 'Belfast'), "connected": [["Muscovy", " Glasgow"], ["Iceland", " Edinburgh"], ["England", " Galway"],
+                                             ["England", " Dublin"]], }
+]
+
+cities_by_name = {
+    'Arendal': ["Malmo", "Bergen", "Gdansk", "Poznan", "Egersund"],
+    'Egersund': ["Arendal",],
+    'Dublin': ["Belfast", "Galway", "York", "Cork","Liverpool"],
+    'Belfast': ["Glasgow", "Edinburgh", "Galway", "Dublin"],
+    'Glasgow': ["Stornoway", "Dundee", "Belfast", "Edinburgh", "Hofn",  "Bergen"],
+    'Dundee': ["Glasgow", "Egersund"],
+    'Bergen': ["Dundee",],
+
+}
+# Dublin, Belfast, Glasgow, Dundee, Egersund, Arendal
+
+
+for x in permutations(cities_by_name):
+    length_max = len(x) - 1
+    if x[0] == city_from_name and x[length_max] == city_to_name:
+        if city_from_name and city_to_name in x:
+            if x[1] in cities_by_name[city_from_name] and x[length_max - 1] in cities_by_name[city_to_name]:
+                # Check if cities are actually linked
+                for item in range(0, 10):
+                    try:
+                        print(x[item], x[item + 1], x, item,)
+                        #print(x[item - 1], x)
+                        if x[item - 1] in x:
+                            #print('aaa ', x)
+                            print('')
+                    except:
+                        pass
+
+
+
+
+min = 0
+max = sys.maxsize
+for x in cities_by_name[city_from_name]:
+    count = 1
+    if x in cities_by_name:
+        for z in cities_by_name[x]:
+            count += 1
+            if z == city_to_name:
+                print('VICTORY Route: ', city_from_name, x, z, 'mp:', count)
+    continue
+    if x[1][0] == 'Glasgow':
+        print('------', x[1][0])
+
+    for z in permutations(cities[3]['connected']):
+        print('-z--z--z-', x[1][0])
+    print(x[1][0])
+    print('')
+    # print(city)
+    # print(city['from'])
+    # print(city['connected'])
+    # for conn_city in city['connected']:
+    #     if conn_city[1] == city_to:
+    #         print('Yeaaaah')
+    # print('')
+
+
+exit()
+
 map_large_page = requests.get(url='http://www.lastknights.com/index.php?page=map&sel=&sel=large')
 map_large_page_data = re.findall('data-city="(\d+)".*?data-name="(\w+)"', str(map_large_page.content), re.DOTALL)
 if map_large_page_data:
@@ -73,121 +155,5 @@ for x in range(1, 300):
     print(country_city_data[0])
     print(map_large_page_data[x - 1])
     print(City.objects.get_or_create(country=country_city_data[0], city_name=map_large_page_data[x -1], connected_cities=json.dumps(border_cities_data)))
-    if x > 30:
-        exit()
-
-
-
-
-
-# while True:
-    # print('{} Sleeping for 2'.format(dt.utcnow()))
-    # time.sleep(2)
-    # resp_get_city_battles = requests.get(url='http://www.lastknights.com/index.php?page=battle&sel=city',
-                                    # cookies=cookies)
-
-    # battles_list = re.findall('a href="index.php\?page=battle&amp;battle_id=(\d*)&amp;back=city&amp;sel=city&amp;start=', str(resp_get_city_battles.content), re.DOTALL)
-    # if not battles_list:
-        # continue
-    # battles_list = re.findall('tr class="(?:even|odd)".*?class="flag symbol" title="(\w*)".*?font size="2">(.*?)<.*?class="flag symbol" title="(\w*)".*?td>.*?span title="(.*?)" >.*?</span>.*?a href="index.php\?page=battle&amp;battle_id=(\d*)&amp;back=city&amp;sel=city&amp;start=', resp_get_city_battles.content, re.DOTALL)
-    # battles_list.sort(reverse=True)
-    # battles_list = {int(battle_id): {'attacker_country':a, 'attacker_name_stats':b, 'defender_country':c, 'time': d} for (a,b,c,d,battle_id) in battles_list}
-    # battles_list = collections.OrderedDict(sorted(battles_list.items(), reverse=True))
-
-    # if battles_list:
-
-        # tlk_type = TodoType.objects.get(group='TLK')
-        # existing_battles = [int(x) for x in TodoList.objects.filter(todo_type=tlk_type).values_list('identifier', flat=True)]
-        # # [x for x in existing_battles if x not in [int(x) for x in TodoList.objects.filter(todo_type=tlk_type).values_list('identifier', flat=True)]]
-        # new_battle_list = [int(x) for x in battles_list if int(x) not in existing_battles]
-        # for battle_id in new_battle_list:
-        # #for battle_id, battle_stats in battles_list.iteritems():
-            # battle_stats = battles_list[battle_id]
-            # print('Found new battle {id}'.format(id=battle_id))
-
-            # resp_get_city_battle_latest = requests.get(
-                    # url='http://www.lastknights.com/index.php?page=battle&battle_id={}&back=city&sel=city&start='.format(battle_id),
-                    # cookies=cookies
-            # )
-
-            # city_battle_stats = re.findall('<table width="100%">(.*?)</table>', resp_get_city_battle_latest.content, re.DOTALL)
-            # attacker_name, outcome, defender_name = re.findall('<font size="4">(.*?)</font>', city_battle_stats[1], re.DOTALL)
-            # city_battle_stats_tr = re.findall('<td>(.*?)</td>', city_battle_stats.pop(), re.DOTALL)
-            # #print city_battle_stats
-            # # print city_battle_stats_tr
-            # side = 'attacker'
-            # count = 0
-            # for item in city_battle_stats_tr:
-                # if 'font size' in item:
-                    # continue
-                # data_stats = globals()['{}_stats'.format(side)]
-
-                # if count == 0:
-                    # unit_type = item
-
-                # if item == '--':
-                    # item = 0
-
-                # # print side, unit_type, item, count
-
-                # if count == 1:
-                    # globals()['{}_stats'.format(side)][unit_type]['Tot'] = int(item)
-                # if count == 2:
-                    # globals()['{}_stats'.format(side)][unit_type]['Inj'] = int(item)
-                # if count == 3:
-                    # globals()['{}_stats'.format(side)][unit_type]['Dead'] = int(item)
-                # if count == 4:
-                    # globals()['{}_stats'.format(side)][unit_type]['Capt'] = int(item)
-
-                # count += 1
-
-                # if item == '' or (count == 5 and side == 'defender'):
-                    # if side == 'attacker':
-                        # side = 'defender'
-                    # else:
-                        # side = 'attacker'
-
-                    # count = 0
-
-            # # print attacker_stats['Commanders']
-            # # print attacker_stats['Heroes']
-            # # print attacker_stats['Artillery']
-            # # print attacker_stats['Cavalry']
-            # # print attacker_stats['Infantry']
-            # # print
-            # # print defender_stats['Commanders']
-            # # print defender_stats['Heroes']
-            # # print defender_stats['Artillery']
-            # # print defender_stats['Cavalry']
-            # # print defender_stats['Infantry']
-            # # print
-            # #print json.dumps({'attacker': attacker_stats, 'defender': defender_stats})
-
-            # #print(battle_stats['time'])
-            # tz_custom = timezone('Europe/Amsterdam')
-            # dt_time = tz_custom.localize(dt.strptime(battle_stats['time'], '%A %B %dth %Y, %H:%M'))
-            # default_tlk = {
-                # 'created': dt_time,
-                # 'todo_type': TodoType.objects.get(group='TLK'),
-                # 'date_deadline': dt.now().replace(year=2100, month=1, day=1, hour=0, minute=0, microsecond=0,
-                                                  # tzinfo=timezone('Europe/Amsterdam'))
-            # }
-            # todolist_item, created = TodoList.objects.get_or_create(identifier=battle_id, defaults=default_tlk)
-            # todolist_item.data = json.dumps(
-                    # {
-                        # 'attacker': attacker_stats,
-                        # 'defender': defender_stats,
-                        # 'stats': {
-                            # 'attacker_name': attacker_name,
-                            # 'attacker_country': battle_stats['attacker_country'],
-                            # 'attacker_name_stats': battle_stats['attacker_name_stats'],
-                            # 'outcome': outcome,
-                            # 'defender_name': defender_name,
-                            # 'defender_country': battle_stats['defender_country'],
-                            # 'time': battle_stats['time'],
-                        # }
-                    # }
-            # )
-            # todolist_item.identifier = battle_id
-            # todolist_item.created = dt_time
-            #todolist_item.save()
+    #if x > 30:
+    #    exit()

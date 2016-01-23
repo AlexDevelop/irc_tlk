@@ -25,8 +25,8 @@ def home(request):
     cookies = dict()
     #print cookies['online']
     #print cookies['user']
-    print cookies['usercookie1'] if 'usercookie1' in cookies else "No usercookie1"
-    print cookies['usercookie2'] if 'usercookie2' in cookies else "No usercookie2"
+    print(cookies['usercookie1'] if 'usercookie1' in cookies else "No usercookie1")
+    print(cookies['usercookie2'] if 'usercookie2' in cookies else "No usercookie2")
 
     cookies['usercookie1'] = 'Livvo'
     cookies['usercookie2'] = '6f295f9a509f539e824cf369cf055207'

@@ -1,3 +1,5 @@
+import json
+
 import os
 import itertools
 from datetime import datetime as dt, timedelta
@@ -11,7 +13,7 @@ django.setup()
 
 from peewee_db import Todos_Todolist
 from pytz import timezone
-from todos.models import Setting, SettingData
+from todos.models import Setting, SettingData, TodoList
 
 
 class ArgumentParser(object):
@@ -123,6 +125,7 @@ class SfsArgument(ArgumentParser):
     def run(self):
         print('SFFSFS run {}'.format(self.number()))
 
+
 class SettingArgument(ArgumentParser):
     name = '!setting'
     commands = ({'!setting list', '!setting add channel !command on|off'})
@@ -154,7 +157,6 @@ class SettingArgument(ArgumentParser):
             print('START DEBUG:')
 
 
-
 class ReminderArgument(ArgumentParser):
     name = '!reminder'
     commands = ({'!reminder <MINUTE> <TEXT>'})
@@ -174,6 +176,31 @@ class ReminderArgument(ArgumentParser):
                 return self.data
         except Exception as e:
             print(e, 'errrooorrr')
+
+
+class CheckborderArgument(ArgumentParser):
+    name = '!checkborder'
+    commands = ({'!checkpvp'})
+
+    def run(self):
+        todos = TodoList.objects.filter(status=0, todo_type_id=4)
+        response = []
+        found_border_length = len(todos)
+        count = 1
+        for todo in todos:
+            data = json.loads(todo.data)
+            response.append('{} {}'.format(data[0], data[1]))
+            if count > 2:
+                response.append('And more! Total number: {} commanders'.format(found_border_length))
+                break
+            count += 1
+
+        if not response:
+            response = 'Nobody at the border.'
+
+        TodoList.objects.filter(status=0, todo_type_id=4).update(status=1)
+
+        return response
 
 # print(ReminderArgument('!reminder 30 something').data)
 # print(HelpArgument().data)

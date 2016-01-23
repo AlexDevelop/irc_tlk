@@ -129,7 +129,23 @@ while True:
 
             #print(battle_stats['time'])
             tz_custom = timezone('Europe/Amsterdam')
-            dt_time = tz_custom.localize(dt.strptime(battle_stats['time'], '%A %B %dth %Y, %H:%M'))
+            try:
+                dt_time = tz_custom.localize(dt.strptime(battle_stats['time'], '%A %B %dth %Y, %H:%M'))
+            except ValueError:
+                pass
+
+            try:
+                dt_time = tz_custom.localize(dt.strptime(battle_stats['time'], '%A %B %dst %Y, %H:%M'))
+            except ValueError:
+                pass
+
+            try:
+                dt_time = tz_custom.localize(dt.strptime(battle_stats['time'], '%A %B %dnd %Y, %H:%M'))
+            except ValueError:
+                pass
+
+
+
             default_tlk = {
                 'created': dt_time,
                 'todo_type': TodoType.objects.get(group='TLK'),
