@@ -49,7 +49,7 @@ sock1.connect(('irc.gamesurge.net', 6667))
 #sock2.connect(('irc.gamesurge.net', 6667))
 connected_sockets = []
 channels = ['#DesertAndPlains']  # '#LivvTest', '#LivvTest2', '#DesertAndPlains'
-channels = ['#LivvTest', '#raberber', ]  #'#mountainclan']  # '#LivvTest', '#LivvTest2', '#DesertAndPlains'
+channels = ['#raberber', ]  #'#mountainclan']  # '#LivvTest', '#LivvTest2', '#DesertAndPlains'
 connected_channels = []
 pinged_sockets = []
 
@@ -264,13 +264,14 @@ while 1:
                         attacker_country=attacker_country, defender_country=defender_country, attacker_name_stats=attacker_name_stats,
                         outcome_txt=outcome_txt, defender_name=defender_name, bg=background_white_color_black, bg_end=background_end,
                         defenders_count=defenders_count)
-                send_to_channel(sock1, connected_channels, country_message)
+                if attacker_country == 'Berber' or defender_country == 'Berber':
+                    send_to_channel(sock1, connected_channels, country_message)
 
-                if data_extf['Commanders']['Tot'] > 0:
-                    bp = BattleParserIrc(data)
-                    bp.run()
-                    for line in bp.lines:
-                        send_to_channel(sock1, connected_channels, line)
+                #if data_extf['Commanders']['Tot'] > 0:
+                #    bp = BattleParserIrc(data)
+                #    bp.run()
+                #    for line in bp.lines:
+                #        send_to_channel(sock1, connected_channels, line)
 
                 # Stat: 448 vs 120 soldiers. 448 (100.0%) vs 49 (40.83%) standing. Attacker wins! 11 (22.45%) captured! FLAWLESS!!
                 # {attacker_name} vs {defender_name}.
@@ -283,9 +284,11 @@ while 1:
                                     attacker_leftover=attacker_leftover, defender_leftover=defender_leftover,
                                     outcome=outcome, battle_time=battle_time, points=points,
                                     defender_leftover_perc=defender_leftover_perc, attacker_leftover_perc=attacker_leftover_perc)
-                send_to_channel(sock1, connected_channels, message)
 
-                if attacker_country == 'Mauretania':
+                if attacker_country == 'Berber' or defender_country == 'Berber':
+                    send_to_channel(sock1, connected_channels, message)
+
+                if attacker_country == 'Berber':
                     send_notice(sock1, '#LivvTest', 'REJOIN!')
                     #Notifier.notify('REJOIN', title='TLK')
 

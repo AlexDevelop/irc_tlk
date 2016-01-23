@@ -27,7 +27,7 @@ class TodoList(TimeStampedModel):
     status = models.IntegerField(blank=True, default=0)
 
     def __str__(self):
-        return self.name
+        return "{}".format(self.created)  # "{} {} {}".format(self.name, self.status, self.identifier)
 
 class Setting(TimeStampedModel):
     name = models.CharField(max_length=255, blank=False)

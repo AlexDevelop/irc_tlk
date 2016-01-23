@@ -68,37 +68,54 @@ cities = [
 ]
 
 cities_by_name = {
-    'Arendal': ["Malmo", "Bergen", "Gdansk", "Poznan", "Egersund"],
-    'Egersund': ["Arendal",],
-    'Dublin': ["Belfast", "Galway", "York", "Cork","Liverpool"],
-    'Belfast': ["Glasgow", "Edinburgh", "Galway", "Dublin"],
-    'Glasgow': ["Stornoway", "Dundee", "Belfast", "Edinburgh", "Hofn",  "Bergen"],
-    'Dundee': ["Glasgow", "Egersund"],
-    'Bergen': ["Dundee",],
+    'Arendal': ["Malmo", "Bergen", "Gdansk", "Poznan", "Egersund", ],
+    'Egersund': ["Arendal", "Dundee", ],
+    'Dublin': ["Belfast", "Galway", "York", "Cork","Liverpool", ],
+    'Belfast': ["Glasgow", "Edinburgh", "Galway", "Dublin", ],
+    'Glasgow': ["Stornoway", "Dundee", "Belfast", "Edinburgh", "Hofn", "Bergen", ],
+    'Dundee': ["Glasgow", "Egersund", ],
+    'Bergen': ["Arendal", "Glasgow", ],
 
 }
 # Dublin, Belfast, Glasgow, Dundee, Egersund, Arendal
 
+def check_city(x, length_max, mp=1, x_counter=0):
+    cities_data = []
+    cities_data.append(x[0])
+    for counter in range(0, length_max + 1):
+        try:
+            cities_data.append(x[mp + 1])
+            if x[mp + 1] in cities_by_name[x[mp]]:
+                print('___', x[mp + 1], x[mp], cities_by_name[x[mp]])
+                if x[mp + 1] == city_to_name:
+                    return mp, cities_data
+                #print(x[counter + 1], cities_by_name[x[counter]])
+                mp += 1
+                x_counter += 1
+                return check_city(x, length_max, mp=mp, x_counter=x_counter)
+        except:
+            pass
+    return mp, cities_data
 
 for x in permutations(cities_by_name):
     length_max = len(x) - 1
     if x[0] == city_from_name and x[length_max] == city_to_name:
-        if city_from_name and city_to_name in x:
-            if x[1] in cities_by_name[city_from_name] and x[length_max - 1] in cities_by_name[city_to_name]:
-                # Check if cities are actually linked
-                for item in range(0, 10):
-                    try:
-                        print(x[item], x[item + 1], x, item,)
-                        #print(x[item - 1], x)
-                        if x[item - 1] in x:
-                            #print('aaa ', x)
-                            print('')
-                    except:
-                        pass
+        check_other_routes = x[2:-1]
+        fake_x = []
+        fake_x.append(x[0])
+        [fake_x.append(x) for x in check_other_routes]
+        fake_x.append(x[-1])
+        for f_x in permutations(fake_x):
+            if f_x[0] == city_from_name and f_x[length_max - 1] == city_to_name:
+                response, city_d = check_city(f_x, length_max - 1, mp=0)
+                if response >= length_max - 1:
+                    pass
+                    #print('--', f_x, city_d)
+        response, city_d = check_city(x, length_max, mp=0)
+        if response >= 3:
+            print(x, set(city_d))
 
-
-
-
+exit()
 min = 0
 max = sys.maxsize
 for x in cities_by_name[city_from_name]:

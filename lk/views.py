@@ -2,13 +2,13 @@ import time
 
 from django.http import HttpResponse
 from django.shortcuts import render, render_to_response
-from django.utils.datastructures import SortedDict
+#from django.utils.datastructures import SortedDict
 import re
 import requests
 from django.utils.http import urlencode
-from lxml import html
+#from lxml import html
 from collections import OrderedDict
-import urllib2
+#import urllib2
 
 
 def home(request):
@@ -18,7 +18,7 @@ def home(request):
     #print resp_post_login.status_code
     #print 'Logout found' if resp_post_login.content.find('logout') else 'Not logged in!'
 
-
+    return HttpResponse('Ok')
 
 
     #cookies = resp_post_login.cookies
@@ -50,7 +50,7 @@ def home(request):
     type_forest = re.findall('name="terrain" value="Forest"', resp_get_border.content, re.DOTALL)
     country_forest = re.findall('name="id" value="(.*?)".*name="terrain" value="Forest"', resp_get_border.content, re.DOTALL)
 
-    print battle_ids, type_forest, country_forest
+    print(battle_ids, type_forest, country_forest)
     return HttpResponse()
 
 

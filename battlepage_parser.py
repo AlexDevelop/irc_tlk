@@ -144,7 +144,10 @@ while True:
             except ValueError:
                 pass
 
-
+            try:
+                dt_time = tz_custom.localize(dt.strptime(battle_stats['time'], '%A %B %drd %Y, %H:%M'))
+            except ValueError:
+                pass
 
             default_tlk = {
                 'created': dt_time,
