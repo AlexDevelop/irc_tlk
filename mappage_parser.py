@@ -1,7 +1,8 @@
 import json
-from itertools import permutations
+from itertools import permutations, combinations
 
 import sys
+from pprint import pprint
 
 import re
 import os
@@ -67,85 +68,136 @@ cities = [
                                              ["England", " Dublin"]], }
 ]
 
-cities_by_name = {
-    'Arendal': ["Malmo", "Bergen", "Gdansk", "Poznan", "Egersund", ],
-    'Egersund': ["Arendal", "Dundee", ],
-    'Dublin': ["Belfast", "Galway", "York", "Cork","Liverpool", ],
-    'Belfast': ["Glasgow", "Edinburgh", "Galway", "Dublin", ],
-    'Glasgow': ["Stornoway", "Dundee", "Belfast", "Edinburgh", "Hofn", "Bergen", ],
-    'Dundee': ["Glasgow", "Egersund", ],
-    'Bergen': ["Arendal", "Glasgow", ],
+# cities_by_name = {
+#     'Arendal': ["Malmo", "Bergen", "Gdansk", "Poznan", "Egersund", ],
+#     'Egersund': ["Arendal", "Dundee", ],
+#     'Dublin': ["Belfast", "Galway", "York", "Cork","Liverpool", ],
+#     'Belfast': ["Glasgow", "Edinburgh", "Galway", "Dublin", ],
+#     'Glasgow': ["Stornoway", "Dundee", "Belfast", "Edinburgh", "Hofn", "Bergen", ],
+#     'Dundee': ["Glasgow", "Egersund", ],
+#     'Bergen': ["Arendal", "Glasgow", ],
+#     'Mo': ["Narvik", "Jokkmokk", ],
+# }
+cities_by_name = {}
+cities_formatted = [x for x in City.objects.all()]
+for city in cities_formatted:
+    city_name = city.city_name.replace('(3mp)', '')
+    city_name = city_name.replace('-', '')
+    city_name = city_name.replace('(2mp)', '')
+    city_name = city_name.replace('.', '')
+    city_name = city_name.replace(' ', '')
+    connected_cities = city.connected_cities.split(',')
+    connected_cities = [x.replace('.', '') for x in [x.replace('(3mp)', '') for x in connected_cities]]
+    connected_cities = [x.replace('(2mp)', '') for x in connected_cities]
+    connected_cities = [x.replace('-', '') for x in connected_cities]
+    connected_cities = [x.replace(' ', '') for x in connected_cities]
+    cities_by_name[city_name] = connected_cities
 
+
+def check_connected_cities(cities):
+    length_cities = len(cities)
+    data = []
+    for counter in range(0, length_cities - 1):
+        if cities[counter] in cities_by_name and cities[counter + 1] in cities_by_name[cities[counter]]:
+            if cities[counter] not in data:
+                data.append(cities[counter])
+            if cities[counter + 1] not in data:
+                data.append(cities[counter + 1])
+        else:
+            return False
+
+    return len(data) == length_cities
+
+
+def check_order_cities(cities):
+    length_cities = len(cities)
+    for counter in range(0, length_cities - 1):
+        if cities[counter] in cities_by_name and not cities[counter + 1] in cities_by_name[cities[counter]]:
+            return False
+
+    return True
+
+
+def check_from_to_cities(cities):
+    if cities[0] != city_from_name:
+        return False
+    if cities[-1] != city_to_name:
+        return False
+
+    return True
+
+
+def _myloop(data=[], count=0):
+    data.append(count)
+    count += 1
+
+    if count >= 10:
+        return data
+    return _myloop(data, count)
+
+found_items = []
+mps = {
+    '2': [],
+    '3': [],
+    '4': [],
+    '5': [],
+    '6': [],
 }
-# Dublin, Belfast, Glasgow, Dundee, Egersund, Arendal
+for city in cities_by_name[city_from_name]:
+    for item_a in permutations(cities_by_name[city]):
+        for city_a in item_a:
 
-def check_city(x, length_max, mp=1, x_counter=0):
-    cities_data = []
-    cities_data.append(x[0])
-    for counter in range(0, length_max + 1):
-        try:
-            cities_data.append(x[mp + 1])
-            if x[mp + 1] in cities_by_name[x[mp]]:
-                print('___', x[mp + 1], x[mp], cities_by_name[x[mp]])
-                if x[mp + 1] == city_to_name:
-                    return mp, cities_data
-                #print(x[counter + 1], cities_by_name[x[counter]])
-                mp += 1
-                x_counter += 1
-                return check_city(x, length_max, mp=mp, x_counter=x_counter)
-        except:
-            pass
-    return mp, cities_data
+            for item_b in permutations(cities_by_name[city_a]):
+                for city_b in item_b:
 
-for x in permutations(cities_by_name):
-    length_max = len(x) - 1
-    if x[0] == city_from_name and x[length_max] == city_to_name:
-        check_other_routes = x[2:-1]
-        fake_x = []
-        fake_x.append(x[0])
-        [fake_x.append(x) for x in check_other_routes]
-        fake_x.append(x[-1])
-        for f_x in permutations(fake_x):
-            if f_x[0] == city_from_name and f_x[length_max - 1] == city_to_name:
-                response, city_d = check_city(f_x, length_max - 1, mp=0)
-                if response >= length_max - 1:
-                    pass
-                    #print('--', f_x, city_d)
-        response, city_d = check_city(x, length_max, mp=0)
-        if response >= 3:
-            print(x, set(city_d))
+                    for city_c in cities_by_name[city_b]:
 
-exit()
-min = 0
-max = sys.maxsize
-for x in cities_by_name[city_from_name]:
-    count = 1
-    if x in cities_by_name:
-        for z in cities_by_name[x]:
-            count += 1
-            if z == city_to_name:
-                print('VICTORY Route: ', city_from_name, x, z, 'mp:', count)
-    continue
-    if x[1][0] == 'Glasgow':
-        print('------', x[1][0])
+                        for item_d in cities_by_name[city_c]:
+                            if item_d in cities_by_name:
+                                # if item_d or city_c or city_b in data:
+                                #     continue
+                                for city_e in cities_by_name[item_d]:
+                                    if city_e in cities_by_name and city_to_name in cities_by_name[city_e]:
+                                        data = ['d', city_from_name, city, city_a, city_b, city_c, item_d, city_e, city_to_name]
+                                        if [len(data), data] not in found_items:
+                                            found_items.append(([len(data), data]))
 
-    for z in permutations(cities[3]['connected']):
-        print('-z--z--z-', x[1][0])
-    print(x[1][0])
-    print('')
-    # print(city)
-    # print(city['from'])
-    # print(city['connected'])
-    # for conn_city in city['connected']:
-    #     if conn_city[1] == city_to:
-    #         print('Yeaaaah')
-    # print('')
+                        if city_to_name in cities_by_name[city_c]:
+                            data = [city_from_name, city, city_a, city_b, city_c, city_to_name]
+                            if [len(data), data] not in found_items:
+                                found_items.append(([len(data), data]))
+
+                    if city_to_name in cities_by_name[city_b]:
+                        data = [city_from_name, city, city_a, city_b, city_to_name]
+                        if [len(data), data] not in found_items:
+                            found_items.append(([len(data), data]))
+                            #print('aaa', data)
+
+                if city_to_name in cities_by_name[city_a]:
+                    data = [city_from_name, city, city_a, city_to_name]
+                    found_items.append([len(data), data])
+
+for item in found_items:
+    if item[0] == 3:
+        mps[str(item[0])].append(item[1])
+    if item[0] == 4:
+        mps[str(item[0])].append(item[1])
+    if item[0] == 5:
+        mps[str(item[0])].append(item[1])
+    if item[0] == 6:
+        mps[str(item[0])].append(item[1])
+
+pprint(found_items, width=150)
+pprint(mps, width=150)
 
 
+
+#pprint(_myloop())
+#print(_myloop())
 exit()
 
 map_large_page = requests.get(url='http://www.lastknights.com/index.php?page=map&sel=&sel=large')
-map_large_page_data = re.findall('data-city="(\d+)".*?data-name="(\w+)"', str(map_large_page.content), re.DOTALL)
+map_large_page_data = re.findall('data-city.*?data-name="(.*?)"', str(map_large_page.content), re.DOTALL)
 if map_large_page_data:
     for item in map_large_page_data:
 #        print(item)
@@ -158,19 +210,13 @@ for x in range(1, 300):
     country_city_data = re.findall('<p.*?country=(\w+)"', str(map_page.content), re.DOTALL)
     if country_city_data:
         current_country = country_city_data[0]
-        print(current_country)
 
-    print(map_large_page_data[x - 1], x - 1, '<<')
-    border_cities_data = re.findall('li.*?country=(\w+)".*?</a>(.*?)</li>', str(map_page.content), re.DOTALL)
+    border_cities_data = re.findall('li.*?country.*?</a>(.*?)</li>', str(map_page.content), re.DOTALL)
     if border_cities_data:
         for city in border_cities_data:
-            print(city)
+            pass
 
-        print(json.dumps(border_cities_data))
-
-    print(x)
-    print(country_city_data[0])
-    print(map_large_page_data[x - 1])
-    print(City.objects.get_or_create(country=country_city_data[0], city_name=map_large_page_data[x -1], connected_cities=json.dumps(border_cities_data)))
+    obj, created = City.objects.get_or_create(country=country_city_data[0], city_name=map_large_page_data[x - 1], connected_cities=",".join(["".join(xx.replace(" ", "")) for xx in border_cities_data]))
+    a = 1
     #if x > 30:
     #    exit()
