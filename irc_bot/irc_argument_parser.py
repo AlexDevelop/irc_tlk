@@ -14,6 +14,8 @@ django.setup()
 from peewee_db import Todos_Todolist
 from pytz import timezone
 from todos.models import Setting, SettingData, TodoList
+from irc_route_parser import find_all_paths, cities_by_name, cities_formatted, c_edges, dijkstra, cities_to_cities
+
 
 
 class ArgumentParser(object):
@@ -202,6 +204,52 @@ class CheckborderArgument(ArgumentParser):
 
         return response
 
+
+class RouteArgument(ArgumentParser):
+    name = '!route'
+    command = ({'!route start_city end_city'})
+
+    def run(self):
+        try:
+            start_city = self.args[0]
+            end_city = self.args[1]
+
+            org_routes = dijkstra(c_edges, start_city, end_city)
+            routes = org_routes
+            #routes = find_all_paths(cities_by_name, start_city, end_city, map_steps=mps)
+            city_route = ''
+            mps = routes[0]
+            try:
+                for x in range(0, routes[0]+1):
+                    city_route += " " + routes[1][0]
+                    routes = routes[1]
+            except IndexError:
+                pass
+
+            city_route = city_route.lstrip()
+            cities_for_mp = [x for x in city_route.split(' ')]
+            city_route_with_mps = ''
+            prev_city = None
+            total_mps = 0
+            for city in cities_for_mp:
+                if not prev_city:
+                    prev_city = city
+                    city_route_with_mps += city + ''
+                else:
+                    mps = cities_to_cities.get(city_name_from=prev_city, city_name_to=city).mps
+                    prev_city = city
+                    city_route_with_mps += ' ({}) '.format(mps)+ city
+                    total_mps += mps
+
+            self.data = []
+
+            if total_mps > 0:
+                self.data.append("Route ({} mps) {}".format(total_mps, city_route_with_mps))
+            return self.data
+        except Exception as e:
+            print(e, 'errrooorrr')
+
+
 # print(ReminderArgument('!reminder 30 something').data)
 # print(HelpArgument().data)
 # print(HelpArgument('!help lead').data)
@@ -209,3 +257,4 @@ class CheckborderArgument(ArgumentParser):
 # LeadArgument('lead add livvo leg')
 # LeadArgument('lead add livvoo xxx')
 # print(LeadArgument('lead list').data)
+print(RouteArgument('!route Amsterdam Marakech').data)

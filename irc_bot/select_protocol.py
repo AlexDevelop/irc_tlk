@@ -49,7 +49,7 @@ sock1.connect(('irc.gamesurge.net', 6667))
 #sock2.connect(('irc.gamesurge.net', 6667))
 connected_sockets = []
 channels = ['#DesertAndPlains']  # '#LivvTest', '#LivvTest2', '#DesertAndPlains'
-channels = ['#raberber', ]  #'#mountainclan']  # '#LivvTest', '#LivvTest2', '#DesertAndPlains'
+channels = ['#TLK-Dev', '#raberber']  #'#mountainclan']  # '#LivvTest', '#LivvTest2', '#DesertAndPlains'
 connected_channels = []
 pinged_sockets = []
 
@@ -72,14 +72,14 @@ def check_flood_protection():
     for item in flood_protection:
         if item < (timestamp_now - 12):
             flood_protection.remove(item)
-    if len(flood_protection) > 6:
+    if len(flood_protection) > 5:
         print('FLOOD', len(flood_protection))
         print(flood_protection[0] < timestamp_now)
         print(flood_protection[0], timestamp_now)
         print((timestamp_now - flood_protection[0]))
         time.sleep(2)
         check_flood_protection()
-    if len(flood_protection) > 8:
+    if len(flood_protection) > 6:
         print('Waaaait FLOOODING CLOSE!')
         time.sleep(3)
 
@@ -341,8 +341,8 @@ while 1:
                 if data:
                     if isinstance(data, list):
                         for line in data:
-                            channel = re.findall('(#\w+) ', result_receiving)
-                            send_to_channel(sock, channel.pop(), line)
+                            channel = re.findall('(#[\w-]+) ', result_receiving)
+                            send_to_channel(sock, channel[0], line)
                     else:
 
                         channel = re.findall('(#\w+) ', result_receiving)
